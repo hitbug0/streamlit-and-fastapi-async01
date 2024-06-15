@@ -45,12 +45,10 @@ if __name__ == "__main__":
 
     if thread1:
         thread1.join()
-        print(st.session_state.response1)
         st.rerun()
 
     if thread2:
         thread2.join()
-        print(st.session_state.response2)
         st.rerun()
 
     col1.write(st.session_state.response1)
