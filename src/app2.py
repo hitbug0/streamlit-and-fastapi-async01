@@ -83,22 +83,15 @@ async def processing_async(e, t):
 
 async def runner(dict_, dt, div):
     tasks = []
+    count = 0
     for e, t in dict_.items():
         task = asyncio.create_task(disp_async(e, t, div))
         tasks.append(task)
-        await asyncio.sleep(dt)
+        count += 1
+        if count < 2:
+            await asyncio.sleep(dt)
 
     await asyncio.gather(*tasks)
-
-
-async def send_request(x):
-    url = "http://localhost:8000/calculate"
-    response = requests.post(url, json={"x": x})
-    if response.status_code == 200:
-        result = response.json().get("result")
-        st.write(f"The result for {x} is {result}")
-    else:
-        st.write("Failed to get a response")
 
 
 if __name__ == "__main__":
